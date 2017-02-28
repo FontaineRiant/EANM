@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EANM:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EANM_jar</output-path>
+    <root id="archive" name="EANM.jar">
+      <element id="module-output" name="EANM" />
+    </root>
+  </artifact>
+</component>
