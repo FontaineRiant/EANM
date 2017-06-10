@@ -9,5 +9,5 @@ Simple settings manager for EVE. Set up your settings on one character, then use
 # Usage
 0. It is highly recommended that you backup your settings before using EANM.
 1. Chose wether you want your "main" (the settings that will overwrite all the others) to be the oldest of all the characters ever used on your computer, or the most recently used (as in "logged in") character on your computer.
-2. Chose wether you want character specific, account specific, or all settingsto be overwitten.
-3. Click "Overwrite"
+2. Chose wether you want character specific, account specific, or all settings to be overwitten.
+3. Click "Overwrite".
