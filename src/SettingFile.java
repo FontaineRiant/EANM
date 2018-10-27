@@ -36,9 +36,9 @@ public class SettingFile extends File{
     @Override
     public String toString() {
         if (isCharFile()) {
-            return id + " - " + getCharName() + " " + new SimpleDateFormat("YYYY-MM-dd").format(getInfos().birthday);
+            return id + " - " + getCharName() + " - Last connection on " + new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(super.lastModified()));
         } else {
-            return Long.toString(id);
+            return Long.toString(id) + " - Last connection on " + new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(super.lastModified()));
         }
     }
 
