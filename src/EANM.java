@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Project : EANM
@@ -22,21 +24,17 @@ public class EANM {
     }
 
     private JButton overwriteButton;
-    private JRadioButton useMostRecentlyUsedRadioButton;
-    private JRadioButton useFirstCreatedRadioButton;
     private JCheckBox copyCharacterSpecificSettingsCheckBox;
     private JCheckBox copyAccountSpecificSettingsCheckBox;
     private JPanel mainView;
+    private JComboBox charSelectionCombo;
+    private JComboBox userSelectionCombo;
     private ButtonGroup charSelect;
 
     private final File FOLDER = new File(System.getProperty("user.dir"));
 
     private ArrayList<SettingFile> charList = new ArrayList<>();
-    private SettingFile charLastModified;
-    private SettingFile charOldest;
     private ArrayList<SettingFile> userList = new ArrayList<>();
-    private SettingFile userLastModified;
-    private SettingFile userOldest;
 
 
     private void updateOverwriteButtonState() {
@@ -45,9 +43,13 @@ public class EANM {
 
     private void initUI() {
 
-        // display ids
-        useFirstCreatedRadioButton.setText(useFirstCreatedRadioButton.getText() + " (id : " + charOldest.toString() + ")");
-        useMostRecentlyUsedRadioButton.setText(useMostRecentlyUsedRadioButton.getText() + " (id : " + charLastModified.toString() + ")");
+        for (SettingFile settingFile : charList) {
+            charSelectionCombo.addItem(settingFile.toString());
+        }
+
+        for (SettingFile settingFile : userList) {
+            userSelectionCombo.addItem(settingFile.toString());
+        }
 
         copyCharacterSpecificSettingsCheckBox.addActionListener(actionEvent -> {
             updateOverwriteButtonState();
@@ -59,12 +61,15 @@ public class EANM {
 
         // Overwrite button
         overwriteButton.addActionListener(actionEvent -> {
+            int selectedCharIdx = charSelectionCombo.getSelectedIndex();
+            int selectedUserIdx = userSelectionCombo.getSelectedIndex();
+
             if(copyAccountSpecificSettingsCheckBox.isSelected()) {
-                overwriteWith(useFirstCreatedRadioButton.isSelected() ? userOldest : userLastModified);
+                overwriteWith(charList.get(selectedCharIdx));
             }
 
             if(copyCharacterSpecificSettingsCheckBox.isSelected()) {
-                overwriteWith(useFirstCreatedRadioButton.isSelected() ? charOldest : charLastModified);
+                overwriteWith(userList.get(selectedUserIdx));
             }
 
             JOptionPane.showMessageDialog(mainView, "Success !");
@@ -104,29 +109,9 @@ public class EANM {
                 if (f.isCharFile()) {
                     // get chars
                     charList.add(f);
-
-                    // check if last modified
-                    if (charLastModified == null || f.lastModified() > charLastModified.lastModified()) {
-                        charLastModified = f;
-                    }
-
-                    // check if oldest
-                    if (charOldest == null || f.getId() < charOldest.getId()) {
-                        charOldest = f;
-                    }
                 } else if (f.isUserFile()) {
                     // get users
                     userList.add(f);
-
-                    // check if last modified
-                    if (userLastModified == null || f.lastModified() > userLastModified.lastModified()) {
-                        userLastModified = f;
-                    }
-
-                    // check if oldest
-                    if (userOldest == null || f.getId() < userOldest.getId()) {
-                        userOldest = f;
-                    }
                 }
             }
         }
@@ -135,6 +120,12 @@ public class EANM {
             JOptionPane.showMessageDialog(mainView, "Missing user or char file !");
             System.exit(0);
         }
+
+        Collections.sort(charList, Comparator.comparingLong(File::lastModified));
+        Collections.sort(userList, Comparator.comparingLong(File::lastModified));
+
+        Collections.reverse(charList);
+        Collections.reverse(userList);
 
         initUI();
     }
