@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/EANM_jar</output-path>
     <root id="archive" name="EANM.jar">
       <element id="module-output" name="EANM" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.8.5.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
