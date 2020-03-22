@@ -10,7 +10,7 @@ Simple settings manager for EVE. Set up your settings on one character, then use
 
 As this application is written in Java, you need a Java runtime installed. From a terminal, you can run `which java` or `java -version` to see if you have a Java runtime available. If not, most modern Linux distributions have OpenJDK in their system package managers.
 
-Settings directory for CCP's Linux client: `~/.eve/wineenv/drive_c/users/dan/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/settings_Default`
+Settings directory for CCP's Linux client: `~/.eve/wineenv/drive_c/users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/settings_Default`
 
 ### Arch
 
