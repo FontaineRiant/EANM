@@ -6,8 +6,41 @@ Simple settings manager for EVE. Set up your settings on one character, then use
 2. Locate your settings directory (which should be in /users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/ or similar)
 3. Place EANM.jar inside the settings directory, where all your "core_char_XXXXXX.dat" are.
 
+## Linux
+
+As this application is written in Java, you need a Java runtime installed. From a terminal, you can run `which java` or `java -version` to see if you have a Java runtime available. If not, most modern Linux distributions have OpenJDK in their system package managers.
+
+Settings directory for CCP's Linux client: `~/.eve/wineenv/drive_c/users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/settings_Default`
+
+### Arch
+
+```
+$ sudo pacman -S jre8-openjdk-headless
+```
+
+### Ubuntu & Debian
+
+```
+$ sudo apt install openjdk-8-jre
+```
+
+### Fedora
+
+```
+$ sudo dnf install java-1.8.0-openjdk-headless
+```
+
 # Usage
 0. It is highly recommended that you backup your settings before using EANM.
 1. Chose which account and which character will be used to override the settings of every other characters and accounts.
-2. Chose wether you want character specific, account specific, or all settings to be overwitten.
+2. Chose whether you want character specific, account specific, or all settings to be overwitten.
 3. Click "Overwrite".
+
+## Linux Usage
+
+The above usage instructions can be followed, but to execute the JAR file, you need to do:
+
+```
+$ cd ~/.eve/wineenv/drive_c/users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/settings_Default
+$ java -jar EANM.jar
+```
