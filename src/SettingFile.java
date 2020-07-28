@@ -38,7 +38,7 @@ public class SettingFile extends File{
         if (isCharFile()) {
             return id + " - " + getCharName() + " - Last connection on " + new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(super.lastModified()));
         } else {
-            return Long.toString(id) + " - Last connection on " + new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(super.lastModified()));
+            return id + " - Last connection on " + new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(super.lastModified()));
         }
     }
 
@@ -47,7 +47,11 @@ public class SettingFile extends File{
     }
 
     public String getCharName() {
-        return getInfos().name;
+        try {
+            return getInfos().name;
+        } catch (Exception ex) {
+            return "unknown";
+        }
     }
 
     private CharacterESIResponse getInfos() {
