@@ -44,3 +44,9 @@ The above usage instructions can be followed, but to execute the JAR file, you n
 $ cd ~/.eve/wineenv/drive_c/users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/settings_Default
 $ java -jar EANM.jar
 ```
+
+# Troubleshooting
+
+## Double clicking EANM.jar does nothing or briefly shows a terminal window (windows)
+
+This usually means windows is trying to execute the jar file with the wrong executable, even when going through the "open with..." dialog. Make sure `javaw.exe` (not `java.exe`) is default to open jar files. Windows can be stubborn and not let you fix it, so using a third party tool like [Jarfix](https://jarfix.en.softonic.com/) might be the only way to set `javaw.exe` as default for jar files.
