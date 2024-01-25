@@ -53,3 +53,5 @@ This usually means windows is trying to execute the jar file with the wrong exec
 
 # Alternative
 [Tau Cabalander explains a way to link all settings to a master file, so that all your characters share the same files at all times.](https://forums-archive.eveonline.com/message/6802475/#post6802475)
+
+[MintNick has developped an alternative with more features.](https://github.com/mintnick/eve-settings-manager)
