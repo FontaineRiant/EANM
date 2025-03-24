@@ -2,7 +2,7 @@
 Simple settings manager for EVE. Set up your settings on one character, then use EANM to reflect your changes on all your characters !
 
 # Installation
-1. Download jar file (https://github.com/Bertral/EANM/raw/master/out/artifacts/EANM_jar/EANM.jar) or build it from source (this is an IDEA project).
+1. Download jar file (https://github.com/FontaineRiant/EANM/raw/master/out/artifacts/EANM_jar/EANM.jar) or build it from source (this is an IDEA project).
 2. Locate your settings directory (which should be in /users/USERNAME/Local Settings/Application Data/CCP/EVE/c_tq_tranquility/ or similar)
 3. Place EANM.jar inside the settings directory, where all your "core_char_XXXXXX.dat" are.
 
