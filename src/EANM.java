@@ -31,7 +31,7 @@ public class EANM {
     private JComboBox userSelectionCombo;
     private ButtonGroup charSelect;
 
-    private final File FOLDER = new File(System.getProperty("user.dir"));
+    private final File FOLDER = new File(System.getProperty("user.home"));
 
     private ArrayList<SettingFile> charList = new ArrayList<>();
     private ArrayList<SettingFile> userList = new ArrayList<>();
@@ -99,8 +99,60 @@ public class EANM {
 
     public EANM() {
         // get files
-        File[] listOfFiles;
-        listOfFiles = FOLDER.listFiles();
+        File userFolder;
+        if (System.getProperty("os.name").equals("Linux")) {
+            File usersFolders = new File(new File(new File(new File(FOLDER, ".eve"), "wineenv"), "drive_c"), "users");
+            File[] possibleUserFolders = usersFolders.listFiles(f -> !"Public".equalsIgnoreCase(f.getName()));
+            
+            if (possibleUserFolders.length == 0) {
+                JOptionPane.showMessageDialog(mainView, "Unable to find EVE wineenv folder");
+                System.exit(1);
+            }
+
+            if (possibleUserFolders.length > 1) {
+                String[] options = new String[possibleUserFolders.length];
+                for (int i = 0; i < possibleUserFolders.length; i++) {
+                    options[i] = possibleUserFolders[i].getName();
+                }
+                int responseIdx = JOptionPane.showOptionDialog(mainView,
+                        "Multiple users available within EVE wineenv folder. Please select one.",
+                        "Multiple Users",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,null, options, options[0]);
+
+                userFolder = possibleUserFolders[responseIdx];
+            } else {
+                userFolder = possibleUserFolders[0];
+            }
+        } else {
+            userFolder = FOLDER;
+        }
+
+        File eveFolder = new File(new File(new File(new File(userFolder, "Local Settings"), "Application Data"), "CCP"), "EVE");
+
+        if (!eveFolder.isDirectory()) {
+            JOptionPane.showMessageDialog(mainView, "Missing EVE settings");
+            System.exit(1);
+        }
+
+        File tranquilitySettingsFolder = new File(eveFolder, "c_tq_tranquility");
+
+        File[] tranquilityProfiles = tranquilitySettingsFolder.listFiles(file -> file.getName().startsWith("settings_"));
+        if (tranquilityProfiles.length > 1) {
+            String[] options = new String[tranquilityProfiles.length];
+            for (int i = 0; i < tranquilityProfiles.length; i++) {
+                options[i] = tranquilityProfiles[i].getName();
+            }
+            int responseIdx = JOptionPane.showOptionDialog(mainView,
+                    "Multiple profiles available within EVE wineenv folder. Please select one.",
+                    "Multiple profiles",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,null, options, options[0]);
+
+            eveFolder = tranquilityProfiles[responseIdx];
+        } else {
+            eveFolder = tranquilityProfiles[0];
+        }
+
+        File[] listOfFiles = eveFolder.listFiles();
 
         // fill file arrays
         for (int i = 0; i < listOfFiles.length; i++) {
